@@ -13,7 +13,7 @@ services:
     environment:
       - PASSWORD_FILE_PATH=/run/secrets/db-password
       - DB_HOST=db
-      - DB_NAME=example
+      - DB_NAME=root
       - DB_USER=root
     develop:
       watch:
@@ -40,7 +40,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 9080:80
+      - 9090:80
     depends_on:
       - db
     environment:
