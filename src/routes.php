@@ -1,9 +1,9 @@
 <?php
 
 $routes = [
-    '' => ['controller' => 'JidloController', 'method' => 'index'],
-    'jidla' => ['controller' => 'JidloController', 'method' => 'index'],
-    'jidlo/id' => ['controller' => 'JidloController', 'method' => 'jidlo']
+    '' => ['controller' => 'NastenkaController', 'method' => 'index'],
+    'Jidla' => ['controller' => 'JidloController', 'method' => 'index'],
+    'Jidlo/id' => ['controller' => 'JidloController', 'method' => 'jidlo']
 ];
 
 ?>

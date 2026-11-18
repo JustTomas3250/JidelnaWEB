@@ -1,2 +1,4 @@
 db/
 README.Docker.md
+node_modules/
+src/public/css

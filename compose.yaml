@@ -30,8 +30,8 @@ services:
     environment:
       - MARIADB_DATABASE=example
       - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db-password
-    expose:
-      - 3306
+    ports:
+      - 127.0.0.1:3306:3306
     healthcheck:
       test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
       interval: 10s
@@ -40,11 +40,18 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 9090:80
+      - 9009:80
     depends_on:
       - db
     environment:
       - PMA_HOST=db
+  tailwind:
+    image: node:22-alpine
+    working_dir: /app
+    user: "1000:1000"
+    volumes:
+      - ./:/app
+    command: npx @tailwindcss/cli -i ./src/public/tailwind/input.css -o ./src/public/css/output.css --watch=always
 volumes:
   db-data:
 secrets:

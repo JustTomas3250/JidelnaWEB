@@ -6,6 +6,17 @@ class JidloController extends Controller {
         $jidloModel = $this->loadModel("Jidlo");
 
         $jidla = $jidloModel->getAll();
+
+        foreach ($jidla as &$jidlo) {
+            $img = basename($jidlo['img'] ?? '');
+    
+            if ($img === '' || !is_file("../public/data/jidla/$img")) {
+                $img = 'default.png';
+            }
+    
+            $jidlo['img'] = "/data/jidla/$img";
+        }
+
         $this->renderView('Jidlo/Jidla', ["jidla" => $jidla]);
     }
 
