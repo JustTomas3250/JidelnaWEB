@@ -11,20 +11,21 @@ class App {
 
         require_once '../routes.php';
 
-        if (isset($urlParts[0])) {
-            $route = $urlParts[0];
+        $urlSet = false;
+
+        for ($i = 0; $i < count($urlParts); $i++) {
+            $route = join('/', array_slice($urlParts, 0, $i + 1));
+
+            if (isset($routes[$route]) && $routes[$route]['params'] == (count($urlParts) - $i - 1)) {
+                $this->controller = $routes[$route]['controller'];
+                $this->method = $routes[$route]['method'];
+                $this->params = array_slice($urlParts, $i + 1);
+                $urlSet = true;
+                break;
+            }
         }
 
-        if (isset($urlParts[1])) {
-            $route = $urlParts[0] . '/' . $urlParts[1];
-        }
-
-        if (isset($routes[$route])) {
-            $this->controller = $routes[$route]['controller'];
-            $this->method = $routes[$route]['method'];
-            $this->params = array_slice($urlParts, 2);
-
-        } else {
+        if (!$urlSet) {
             echo "404 - Route Not found!";
             return;
         }
